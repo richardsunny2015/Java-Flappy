@@ -26,7 +26,7 @@ public class BufferUtils {
         return result;
     }
 
-    public static IntBuffer createFloatBuffer(int[] array) {
+    public static IntBuffer createIntBuffer(int[] array) {
         IntBuffer result = ByteBuffer
                 .allocateDirect(array.length << 2)
                 .order(ByteOrder.nativeOrder())
