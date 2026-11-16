@@ -4,8 +4,6 @@ import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
 
 public class ShaderUtils {
-    private ShaderUtils() {
-    }
 
     public static int load(String vertPath, String fragPath) {
         String vert = FileUtils.loadAsString(vertPath);
