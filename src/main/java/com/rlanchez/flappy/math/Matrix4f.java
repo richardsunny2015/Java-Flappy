@@ -2,6 +2,10 @@ package com.rlanchez.flappy.math;
 
 import static java.lang.Math.*;
 
+import java.nio.FloatBuffer;
+
+import com.rlanchez.flappy.utils.BufferUtils;
+
 public class Matrix4f {
     public static final int SIZE = 4 * 4;
     public float[] elements = new float[SIZE];
@@ -70,5 +74,9 @@ public class Matrix4f {
         result.elements[2 + 3 * 4] = (near + far) / (far - near);
 
         return result;
+    }
+
+    public FloatBuffer tFloatBuffer() {
+        return BufferUtils.createFloatBuffer(elements);
     }
 }
