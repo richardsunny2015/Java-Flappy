@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Shader {
+    public static final int VERTEX_ATTRIB = 0;
+    public static final int TEXTURE_COORDS_ATTRIB = 1;
+
     private final int ID;
     private Map<String, Integer> locationCache = new HashMap<>();
 
