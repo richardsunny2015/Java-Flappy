@@ -5,15 +5,20 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_NO_ERROR;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glGetError;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
+import com.rlanchez.flappy.graphics.Shader;
 import com.rlanchez.flappy.input.KeyboardInput;
+import com.rlanchez.flappy.level.Level;
+import com.rlanchez.flappy.math.Matrix4f;
 
 public class Main implements Runnable {
     private int width = 1280;
@@ -22,6 +27,7 @@ public class Main implements Runnable {
     private boolean running = true;
     private long window;
     private Thread thread;
+    private Level level;
 
     public void start() {
         running = true;
@@ -46,9 +52,16 @@ public class Main implements Runnable {
         glfwShowWindow(window);
 
         GL.createCapabilities();
-        glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glEnable(GL_DEPTH_TEST);
+        Shader.loadAll();
+        Shader.BACKGROUND.enable();
 
+        Matrix4f prMatrix = Matrix4f.orthographic(-10.0f, 10.0f, -10.0f * -9.0f / 16.0f, 10.0f * 9.0f / 16.0f, -1.0f, 1.0f);
+        Shader.BACKGROUND.setUniformMat4f("pr_matrix", prMatrix);
+        Shader.BACKGROUND.disable();
+        // Texture loadall
+        level = new Level();
     }
 
     public void run() {
@@ -69,6 +82,7 @@ public class Main implements Runnable {
     }
     private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        level.render();
         glfwSwapBuffers(window);
     }
     public static void main(String[] args) {

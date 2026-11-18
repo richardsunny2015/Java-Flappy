@@ -11,6 +11,7 @@ import java.util.Map;
 public class Shader {
     public static final int VERTEX_ATTRIB = 0;
     public static final int TEXTURE_COORDS_ATTRIB = 1;
+    public static Shader BACKGROUND;
 
     private final int ID;
     private Map<String, Integer> locationCache = new HashMap<>();
@@ -18,6 +19,10 @@ public class Shader {
     public Shader(String vertPath, String fragPath) {
         // Should really check to see if this ID is -1
         ID = ShaderUtils.load(vertPath, fragPath);
+    }
+
+    public static void loadAll() {
+        BACKGROUND = new Shader("shaders/bg.vert", "shaders/bg.frag");
     }
 
     public int getUniform(String name) {
