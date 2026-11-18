@@ -63,4 +63,15 @@ public class VertexArray {
         glBindVertexArray(vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     }
+    public void unbind() {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+    }
+    public void draw() {
+        glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_BYTE, 0);
+    }
+    public void render() {
+        bind();
+        draw();
+    }
 }
